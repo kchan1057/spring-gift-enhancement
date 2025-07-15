@@ -29,7 +29,7 @@ public class WishController {
 
   @PostMapping
   public ResponseEntity<Void> addWish(@LoginMember User user, @RequestBody WishRequestDto dto) {
-    wishService.saveWishProduct(user.getId(), dto.getProductId());
+    wishService.saveWishProduct(user.getId(), dto.productId());
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 

@@ -1,6 +1,5 @@
-package com.example.demo.repository.wish;
+package com.example.demo.repository;
 
-import com.example.demo.dto.wish.WishResponseDto;
 import com.example.demo.entity.Wish;
 import com.example.demo.entity.WishId;
 import java.util.List;
