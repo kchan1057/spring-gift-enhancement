@@ -5,7 +5,7 @@
 ---
 ## 추가 구현 기능(07.15)
 - JdbcClient -> JPA로 리팩토링 진행
-- Service Layer에서 Transactional의 Default 값을 ReadOnly = ture로 설정(OneToOne, OneToMany, LazyLoding을 정상적으로 수행하기 위해)
+- Service Layer에서 Transactional의 Default 값을 ReadOnly = true로 설정(OneToOne, OneToMany, LazyLoding을 정상적으로 수행하기 위해) https://resilient-923.tistory.com/415 해당 글 참고하였습니다!
 - 커스텀 Exception등 RuntimeException의 일환이므로 Transactional내에서 자동으로 롤백되니 따로 rollback for을 지정해주지 않았음.
 - 복합키는 연관관계 매핑이 포함된 복합키이므로 @IdClass대신 @EmbeddedId를 이용해서 구현.
 - RepositoryImpl은 다 제거하고 인터페이스 내에서 JPA가 기본적으로 제공하는 메소드를 제외하고 커스텀 메소드만 남겨둠.
