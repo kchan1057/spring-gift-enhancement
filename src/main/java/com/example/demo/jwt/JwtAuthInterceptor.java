@@ -22,7 +22,7 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     try {
-      User user = AuthUtil.extractUserFromRequest(request, jwtProvider, userService);
+      User user = AuthExtractor.extractUserFromRequest(request, jwtProvider, userService);
 
       request.setAttribute("loginUser", user);
       request.setAttribute("userRole", user.getRole());

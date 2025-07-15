@@ -55,7 +55,7 @@ public class ProductPageController {
         model.addAttribute("errorMessage", errorMessage);
         return "form";
       }
-    productService.addProduct(dto);
+    productService.saveProduct(dto);
     return "redirect:/product-page";
   }
 

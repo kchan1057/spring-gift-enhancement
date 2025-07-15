@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 public class JwtProvider {
 
   private final Key key;
-  private final long ACCESS_TOKEN_EXPIRE_MS = 1000 * 60 * 60;
-  private final long REFRESH_TOKEN_EXPIRE_MS = 1000 * 60 * 60 * 24 * 60;
+  private static final long ACCESS_TOKEN_EXPIRE_MS = 1000 * 60 * 60;
+  private static final long REFRESH_TOKEN_EXPIRE_MS = 1000 * 60 * 60 * 24 * 60;
 
   public JwtProvider(@Value("${jwt.secret}") String secret) {
     if (secret == null || secret.length() < 32) {
