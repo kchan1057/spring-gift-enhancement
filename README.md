@@ -1,43 +1,34 @@
 #  spring-product-api
 
-스프링 부트를 활용한 **상품(Product)** 관리 REST API 프로젝트입니다.  
-상품 등록, 조회, 수정, 삭제 기능을 제공합니다.
+스프링 부트를 활용한 **위시리스트(WishList)** 관리 REST API 프로젝트입니다.
 <br><br>
 ---
-## 추가 구현 기능(07.10)
-- **커스템 예외처리 기능**: InvaildLoginException, UserNotFoundException 추가
-- **비밀번호 암호화**: Spring Security를 사용못하기 때문에 자체 암호화 클래스 PasswordHasher 추가(SHA-256)
-- **User Login 테스트 코드(E2E 테스트)**: JUnit5/RestClient를 통한 테스트 코드 작성.
-- **Jwt 구현**
-- **Login page 구현**: Spring Security를 사용할 수 없기 때문에(제이슨 강사님 강조) 시큐리티에서 제공하는 로그인 페이지를 사용할 수 없으므로 직접 구현
-- **인터셉터 구현**: 이 사용자가 유효한지 인터셉터에서 검증하도록 구현(WebConfig + JwtAuthInterceptor)
-- **refresh_token 테이블 PK 변경**: 사용자가 이메일을 변경했을 때를 고려하여 users 테이블의 id를 PK+FK로 구성.
-
-
-## 오류 해결
-- 
-
-## 추가 예정 기능 
-- Role을 현재 추가만 해놓은 상태인데, 후에 역할별로 들어가는 페이지를 다르게 설정하게끔 유도(인터셉터 이용).
-- 회원가입 기능 구현(현재는 H2 DB에 default로 넣어놓은 사람만 로그인 가능)
+## 추가 구현 기능(07.15)
+- JdbcClient -> JPA로 리팩토링 진행
+- Service Layer에서 Transactional의 Default 값을 ReadOnly = ture로 설정(OneToOne, OneToMany, LazyLoding을 정상적으로 수행하기 위해)
+- 커스텀 Exception등 RuntimeException의 일환이므로 Transactional내에서 자동으로 롤백되니 따로 rollback for을 지정해주지 않았음.
+- 복합키는 연관관계 매핑이 포함된 복합키이므로 @IdClass대신 @EmbeddedId를 이용해서 구현.
+- RepositoryImpl은 다 제거하고 인터페이스 내에서 JPA가 기본적으로 제공하는 메소드를 제외하고 커스텀 메소드만 남겨둠.
+- 여러가지 사용하지 않는 메소드와 필요없는 클래스 제거 및 의도가 불분명한 클래스 네이밍 변경.
 
 ---
 
 ## 구현 기능
 
 ###  상품 목록 조회
+
 - **URL**: `GET /products`
 - **설명**: 등록된 모든 상품 목록을 조회합니다.
-
 ---
 
 ###  상품 단건 조회
+
 - **URL**: `GET /products/{id}`
 - **설명**: ID에 해당하는 상품 정보를 조회합니다.
-
 ---
 
 ###  상품 추가
+
 - **URL**: `POST /products`
 - **설명**: 새로운 상품을 등록합니다.
 - **요청 바디 예시**:
@@ -49,9 +40,9 @@
 }
 ```
 ###  상품 삭제
+
 - **URL**: `DELETE /products/{id}`
 - **설명**: 지정한 ID의 상품을 삭제합니다.
-
 ---
 
 ## 관리자 페이지(Thymeleaf 기반)
@@ -60,29 +51,24 @@
 
 - **URL**: GET /product-page
 - **설명**: 관리자용 상품 리스트 페이지(HTML 기반)
-
 ---
 
 ### 상품 등록 폼
 
 - **URL**: GET /product-page/new   
-- **설명**: 새로운 상품을 등록하는 폼 페이지  
-
+- **설명**: 새로운 상품을 등록하는 폼 페이지
 ---
 
 ### 상품 수정 폼
 
 - **URL**: GET /product-page/{id}  
 - **설명**: 기존 상품 정보를 수정하는 폼 페이지
-
 ---
 
 ### 상품 삭제 요청
 
-
 - **URL**: POST /product-page/{id}/delete   
 - **설명**: HTML 페이지에서 상품 삭제 요청을 전송합니다
-
 
 ### 기술 스택
 Java 21
@@ -91,7 +77,7 @@ Spring Boot 3.5.3
 
 Spring Web (REST API)
 
-Spring JDBC (JdbcClient)
+Spring JPA
 
 Thymeleaf (관리자 페이지용)
 
@@ -100,4 +86,4 @@ H2 Database (in-memory)
 JUnit5 (E2E 테스트 코드 작성)
 
 Jwt(Spring Security 사용 X): refreshToken accessToken을 이용한 회원 로그인
-
+-> 미션의 난이도를 고려해 RefreshToken은 명시만 해놓되 이용은 최대한 자제.(멘토님 조언)
