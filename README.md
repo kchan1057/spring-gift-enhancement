@@ -3,13 +3,12 @@
 스프링 부트를 활용한 **위시리스트(WishList)** 관리 REST API 프로젝트입니다.
 <br><br>
 ---
-## 추가 구현 기능(07.15)
-- JdbcClient -> JPA로 리팩토링 진행
-- Service Layer에서 Transactional의 Default 값을 ReadOnly = ture로 설정(OneToOne, OneToMany, LazyLoding을 정상적으로 수행하기 위해)
-- 커스텀 Exception등 RuntimeException의 일환이므로 Transactional내에서 자동으로 롤백되니 따로 rollback for을 지정해주지 않았음.
-- 복합키는 연관관계 매핑이 포함된 복합키이므로 @IdClass대신 @EmbeddedId를 이용해서 구현.
-- RepositoryImpl은 다 제거하고 인터페이스 내에서 JPA가 기본적으로 제공하는 메소드를 제외하고 커스텀 메소드만 남겨둠.
-- 여러가지 사용하지 않는 메소드와 필요없는 클래스 제거 및 의도가 불분명한 클래스 네이밍 변경.
+## 추가 구현 기능(07.16)
+- @DataJpaTest를 이용한 Jpa테스트 진행.
+- 여러가지 코드 리팩토링 진행.
+
+## 오류 해결(7.16)
+- User E2E Test 실패를 @Sql 삽입으로 해결.
 
 ---
 
