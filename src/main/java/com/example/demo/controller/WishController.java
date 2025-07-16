@@ -1,4 +1,4 @@
-package com.example.demo.controller.wish;
+package com.example.demo.controller;
 
 import com.example.demo.dto.wish.WishRequestDto;
 import com.example.demo.dto.wish.WishResponseDto;

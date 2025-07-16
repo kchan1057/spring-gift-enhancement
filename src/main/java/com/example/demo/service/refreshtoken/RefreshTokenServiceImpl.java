@@ -23,10 +23,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
   @Override
   @Transactional
-  public void saveRefreshToken(Long id, String refreshToken) {
-    User user = userRepository.findById(id)
-        .orElseThrow(() -> new UserNotFoundException("해당 사용자가 존재하지 않습니다."));
-
+  public void saveRefreshToken(User user, String refreshToken) {
     RefreshToken token = new RefreshToken(user, refreshToken);
     refreshTokenRepository.save(token);
   }

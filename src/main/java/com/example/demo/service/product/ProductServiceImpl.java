@@ -50,13 +50,11 @@ public class ProductServiceImpl implements ProductService {
   @Transactional
   public ProductResponseDto productUpdateById(Long id, ProductUpdateDto dto) {
     Product product = productRepository.findById(id)
-                                       .orElseThrow(() -> new IllegalArgumentException(
-            "해당 ID의 상품이 존재하지 않습니다: " + id));
-    String name = dto.getName() != null ? dto.getName() : product.getName();
-    int price = dto.getPrice() != null ? dto.getPrice() : product.getPrice();
-    String imageUrl = dto.getImageUrl() != null ? dto.getImageUrl() : product.getImageUrl();
-    product.update(name, price, imageUrl);
+                                       .orElseThrow(() -> new IllegalArgumentException("해당 ID의 상품이 존재하지 않습니다: " + id));
 
+    product.updateProductName(dto.getName());
+    product.updateProductPrice(dto.getPrice());
+    product.updateImageUrl(dto.getImageUrl());
     return toDto(product);
   }
 

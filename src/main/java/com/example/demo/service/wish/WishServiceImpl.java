@@ -34,18 +34,14 @@ public class WishServiceImpl implements WishService{
 
   @Override
   @Transactional
-  public void saveWishProduct(Long userId, Long productId) {
-    if (wishRepository.existsById(new WishId(userId, productId))) {
+  public void saveWishProduct(User user, Long productId) {
+    if (wishRepository.existsById(new WishId(user.getId(), productId))) {
       throw new DuplicateWishException("이미 찜한 상품입니다.");
     }
-
-    User user = userRepository.findById(userId)
-                              .orElseThrow(() -> new UserNotFoundException("해당 유저가 존재하지 않습니다."));
-
     Product product = productRepository.findById(productId)
                                        .orElseThrow(() -> new ProductNotFoundException("해당 상품이 존재하지 않습니다."));
 
-    Wish wish = new Wish(new WishId(userId, productId), user, product);
+    Wish wish = new Wish(new WishId(user.getId(), productId), user, product);
     wishRepository.save(wish);
   }
 
@@ -53,10 +49,6 @@ public class WishServiceImpl implements WishService{
   @Transactional
   public void deleteWishProduct(Long userId, Long productId) {
     WishId wishId = new WishId(userId, productId);
-    if (!wishRepository.existsById(wishId)) {
-      throw new WishNotFoundException("해당 상품은 위시리스트에 존재하지 않습니다.");
-    }
-
     wishRepository.deleteById(wishId);
   }
 

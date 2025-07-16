@@ -56,15 +56,16 @@ public class User {
   public void setId(Long id) {
     this.id = id;
   }
+
   public void setEmail(String email) {
     this.email = email;
   }
 
-  public void setPassword(String password){
+  public void changePassword(String password){
     this.password = password;
   }
 
-  public void setRole(String role){
+  public void assignRole(String role){
     this.role = role;
   }
 }

@@ -34,11 +34,16 @@ public class Product {
     this.imageUrl = imageUrl;
   }
 
-  public void update(String name, int price, String imageUrl) {
-    if (price < 0) throw new IllegalArgumentException("가격은 음수일 수 없습니다.");
-    this.name = name;
-    this.price = price;
-    this.imageUrl = imageUrl;
+  public void updateProductName(String name){
+    if(name != null) this.name = name;
+  }
+
+  public void updateProductPrice(int price){
+    if(price > 0) this.price = price;
+  }
+
+  public void updateImageUrl(String imageUrl){
+    if(imageUrl != null) this.imageUrl = imageUrl;
   }
 
   public Product(String name, int price, String imageUrl) {
