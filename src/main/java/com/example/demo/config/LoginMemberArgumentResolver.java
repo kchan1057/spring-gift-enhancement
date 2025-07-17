@@ -11,7 +11,7 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import com.example.demo.jwt.AuthUtil;
+import com.example.demo.jwt.AuthExtractor;
 
 @Component
 public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
@@ -38,7 +38,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
       WebDataBinderFactory binderFactory) {
 
     HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-    return AuthUtil.extractUserFromRequest(request, jwtProvider, userService);
+    return AuthExtractor.extractUserFromRequest(request, jwtProvider, userService);
   }
 
 }

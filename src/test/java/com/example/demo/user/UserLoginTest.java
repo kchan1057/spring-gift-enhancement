@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
@@ -27,9 +28,8 @@ class UserLoginTest {
   @LocalServerPort
   private int port;
 
-  private RestClient client = RestClient.builder().build();
-  @Autowired
-  private UserService userService;
+  private final RestClient client = RestClient.builder().build();
+
   @Test
   void 로그인_후_me_요청시_회원정보가_반환된다() {
     UserRequestDto dto = new UserRequestDto("example@example.com", "abcd1234!", "admin");

@@ -1,10 +1,31 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "product")
 public class Product {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
   private String name;
+
+  @Column(nullable = false)
   private int price;
+
+  @Column
   private String imageUrl;
+
+  protected Product() {
+  }
 
   public Product(Long id, String name, int price, String imageUrl){
     this.id = id;
@@ -13,14 +34,16 @@ public class Product {
     this.imageUrl = imageUrl;
   }
 
-  public Product() {
+  public void updateProductName(String name){
+    if(name != null) this.name = name;
   }
 
-  public void update(String name, int price, String imageUrl) {
-    if (price < 0) throw new IllegalArgumentException("가격은 음수일 수 없습니다.");
-    this.name = name;
-    this.price = price;
-    this.imageUrl = imageUrl;
+  public void updateProductPrice(int price){
+    if(price > 0) this.price = price;
+  }
+
+  public void updateImageUrl(String imageUrl){
+    if(imageUrl != null) this.imageUrl = imageUrl;
   }
 
   public Product(String name, int price, String imageUrl) {

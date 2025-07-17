@@ -1,6 +1,6 @@
 package com.example.demo.exception.handler;
 
-import com.example.demo.controller.wish.WishController;
+import com.example.demo.controller.WishController;
 import com.example.demo.dto.ErrorResponseDto;
 import com.example.demo.exception.DuplicateWishException;
 import com.example.demo.exception.WishNotFoundException;

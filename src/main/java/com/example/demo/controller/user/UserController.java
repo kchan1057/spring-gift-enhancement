@@ -42,7 +42,7 @@ public class UserController {
     }
 
     Jwt jwt = jwtProvider.createJwt(user.getId(), user.getEmail(), user.getRole());
-    refreshTokenService.saveRefreshToken(user.getId(), jwt.getRefreshToken());
+    refreshTokenService.saveRefreshToken(user, jwt.getRefreshToken());
 
     return ResponseEntity.ok()
         .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt.getAccessToken())

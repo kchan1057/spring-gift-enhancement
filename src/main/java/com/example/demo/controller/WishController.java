@@ -1,4 +1,4 @@
-package com.example.demo.controller.wish;
+package com.example.demo.controller;
 
 import com.example.demo.dto.wish.WishRequestDto;
 import com.example.demo.dto.wish.WishResponseDto;
@@ -26,10 +26,9 @@ public class WishController {
     this.wishService = wishService;
   }
 
-
   @PostMapping
   public ResponseEntity<Void> addWish(@LoginMember User user, @RequestBody WishRequestDto dto) {
-    wishService.saveWishProduct(user.getId(), dto.getProductId());
+    wishService.saveWishProduct(user, dto.productId());
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 

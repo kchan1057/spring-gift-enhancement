@@ -6,7 +6,7 @@ import com.example.demo.service.user.UserService;
 import org.springframework.http.HttpHeaders;
 import jakarta.servlet.http.HttpServletRequest;
 
-public class AuthUtil {
+public class AuthExtractor {
 
   public static User extractUserFromRequest(HttpServletRequest request, JwtProvider jwtProvider,
       UserService userService) {
