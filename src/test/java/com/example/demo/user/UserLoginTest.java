@@ -31,7 +31,6 @@ class UserLoginTest {
   private final RestClient client = RestClient.builder().build();
 
   @Test
-  @Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
   void 로그인_후_me_요청시_회원정보가_반환된다() {
     UserRequestDto dto = new UserRequestDto("example@example.com", "abcd1234!", "admin");
     String loginUrl = "http://localhost:" + port + "/login";
