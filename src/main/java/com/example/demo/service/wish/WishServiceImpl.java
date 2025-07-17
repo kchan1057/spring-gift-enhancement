@@ -1,5 +1,6 @@
 package com.example.demo.service.wish;
 
+import com.example.demo.dto.wish.WishPagingResponseDto;
 import com.example.demo.dto.wish.WishResponseDto;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
@@ -7,13 +8,10 @@ import com.example.demo.entity.Wish;
 import com.example.demo.entity.WishId;
 import com.example.demo.exception.DuplicateWishException;
 import com.example.demo.exception.ProductNotFoundException;
-import com.example.demo.exception.UserNotFoundException;
-import com.example.demo.exception.WishNotFoundException;
 import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.WishRepository;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,13 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class WishServiceImpl implements WishService{
 
   private final WishRepository wishRepository;
-  private final UserRepository userRepository;
   private final ProductRepository productRepository;
 
-  public WishServiceImpl(WishRepository wishRepository, UserRepository userRepository,
-      ProductRepository productRepository) {
+  public WishServiceImpl(WishRepository wishRepository, ProductRepository productRepository) {
     this.wishRepository = wishRepository;
-    this.userRepository = userRepository;
     this.productRepository = productRepository;
   }
 
@@ -53,15 +48,10 @@ public class WishServiceImpl implements WishService{
   }
 
   @Override
-  public List<WishResponseDto> getWishProductList(Long userId) {
-    List<Wish> wishes = wishRepository.findAllById_UserId(userId);
 
-    return wishes.stream()
-                 .map(wish -> new WishResponseDto(
-                     wish.getProduct().getName(),
-                     wish.getProduct().getPrice(),
-                     wish.getProduct().getImageUrl()
-                 ))
-                 .collect(Collectors.toList());
+  public WishPagingResponseDto getWishList(Long userId, Pageable pageable) {
+    Page<WishResponseDto> result = wishRepository.findAllByUserId(userId, pageable)
+                                                 .map(WishResponseDto::from);
+    return WishPagingResponseDto.from(result);
   }
 }
