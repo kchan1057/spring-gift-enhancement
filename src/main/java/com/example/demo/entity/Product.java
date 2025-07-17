@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product")
@@ -23,6 +24,9 @@ public class Product {
 
   @Column
   private String imageUrl;
+
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
 
   protected Product() {
   }
@@ -68,6 +72,10 @@ public class Product {
     return imageUrl;
   }
 
+  public LocalDateTime getCreatedAt(){
+    return createdAt;
+  }
+
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
   }
@@ -82,6 +90,10 @@ public class Product {
 
   public void setId(Long id){
     this.id = id;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt){
+    this.createdAt = createdAt;
   }
 }
 

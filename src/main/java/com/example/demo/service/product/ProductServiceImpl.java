@@ -5,7 +5,12 @@ import com.example.demo.dto.product.ProductResponseDto;
 import com.example.demo.dto.product.ProductUpdateDto;
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
+import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +67,14 @@ public class ProductServiceImpl implements ProductService {
   @Transactional
   public void productDeleteById(Long id) {
     productRepository.deleteById(id);
+  }
+
+  @Override
+  public Page<Product> getList(int page) {
+    List<Sort.Order> sorts = new ArrayList<>();
+    sorts.add(Sort.Order.desc("createdAt"));
+    Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+    return this.productRepository.findAll(pageable);
   }
 
   private ProductResponseDto toDto(Product product){
