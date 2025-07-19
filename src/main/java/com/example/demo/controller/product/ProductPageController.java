@@ -3,9 +3,11 @@ package com.example.demo.controller.product;
 import com.example.demo.dto.product.ProductRequestDto;
 import com.example.demo.dto.product.ProductResponseDto;
 import com.example.demo.dto.product.ProductUpdateDto;
+import com.example.demo.entity.Product;
 import com.example.demo.service.product.ProductService;
 import jakarta.validation.Valid;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/product-page")
@@ -25,11 +28,6 @@ public class ProductPageController {
     this.productService = productService;
   }
 
-  @GetMapping
-  public String showList(Model model) {
-    model.addAttribute("products", productService.productFindAll());
-    return "product/list";
-  }
 
   @GetMapping("/new")
   public String showCreateForm(Model model) {
@@ -94,5 +92,12 @@ public class ProductPageController {
   public String deleteProduct(@PathVariable Long id) {
     productService.productDeleteById(id);
     return "redirect:/product-page";
+  }
+
+  @GetMapping
+  public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+    Page<Product> paging = this.productService.getList(page);
+    model.addAttribute("paging", paging);
+    return "list";
   }
 }

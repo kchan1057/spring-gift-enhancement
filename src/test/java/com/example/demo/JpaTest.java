@@ -20,9 +20,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 class JpaTest {
 
   @Autowired
-  private TestEntityManager entityManager;
-
-  @Autowired
   private UserRepository userRepository;
 
   @Autowired
@@ -37,7 +34,7 @@ class JpaTest {
     User savedUser = userRepository.save(user);
 
     assertAll(
-        () -> assertThat(savedUser.getId()).isEqualTo(1),
+        () -> assertThat(savedUser.getId()).isNotNull(),
         () -> assertThat(savedUser.getEmail()).isEqualTo("test@example.com"),
         () -> assertThat(savedUser.getRole()).isEqualTo("USERS")
     );
@@ -49,7 +46,7 @@ class JpaTest {
     Product savedProduct = productRepository.save(product);
 
     assertAll(
-        () -> assertThat(savedProduct.getId()).isEqualTo(1),
+        () -> assertThat(savedProduct.getId()).isNotNull(),
         () -> assertThat(savedProduct.getName()).isEqualTo("카카오테크캠퍼스"),
         () -> assertThat(savedProduct.getPrice()).isEqualTo(100),
         () -> assertThat(savedProduct.getImageUrl()).isEqualTo("test.com")

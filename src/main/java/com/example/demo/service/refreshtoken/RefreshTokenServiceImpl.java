@@ -2,7 +2,6 @@ package com.example.demo.service.refreshtoken;
 
 import com.example.demo.entity.RefreshToken;
 import com.example.demo.entity.User;
-import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.RefreshTokenRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;

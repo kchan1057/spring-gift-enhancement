@@ -87,7 +87,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="product : ${products}">
+  <tr th:each="product : ${paging.content}">
     <td th:text="${product.id}"></td>
     <td th:text="${product.name}"></td>
     <td th:text="${product.price} + '원'"></td>
@@ -104,5 +104,18 @@
   </tr>
   </tbody>
 </table>
+<div style="margin-top: 20px; text-align: center;">
+  <span th:if="${paging.hasPrevious()}">
+    <a th:href="@{'?page=' + ${paging.number - 1}}" style="margin-right: 10px;">◀ 이전</a>
+  </span>
+
+  <span th:text="${paging.number + 1}">1</span>
+  <span> / </span>
+  <span th:text="${paging.totalPages}">1</span>
+
+  <span th:if="${paging.hasNext()}">
+    <a th:href="@{'?page=' + ${paging.number + 1}}" style="margin-left: 10px;">다음 ▶</a>
+  </span>
+</div>
 </body>
 </html>

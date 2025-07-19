@@ -1,14 +1,20 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "wish")
 public class Wish {
@@ -25,6 +31,14 @@ public class Wish {
   @MapsId("productId")
   @JoinColumn(name ="product_id")
   private Product product;
+
+  @CreatedDate
+  @Column(updatable = false)
+  private LocalDateTime createdAt;
+
+  @LastModifiedDate
+  @Column
+  private LocalDateTime updatedAt;
 
   protected Wish(){}
 
@@ -44,5 +58,13 @@ public class Wish {
 
   public Product getProduct(){
     return product;
+  }
+
+  public LocalDateTime getCreatedAt(){
+    return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt(){
+    return updatedAt;
   }
 }
