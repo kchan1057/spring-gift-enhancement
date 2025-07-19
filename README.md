@@ -3,8 +3,9 @@
 스프링 부트를 활용한 **위시리스트(WishList)** 관리 REST API 프로젝트입니다.
 <br><br>
 ---
-## 추가 구현 기능(07.17)
-- Paging 기능 구현
+## 추가 구현 기능(07.19)
+- Paging 기능 구현(일부 사항들 Controller에서 Service Layer로 이전).
+- build시 오류 해결 및 테스트 클래스 문제 해결
 
 
 ---
