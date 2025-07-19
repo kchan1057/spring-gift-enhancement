@@ -5,9 +5,6 @@ import com.example.demo.dto.wish.WishRequestDto;
 import com.example.demo.entity.User;
 import com.example.demo.service.wish.WishService;
 import com.example.demo.validation.LoginMember;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,11 +38,12 @@ public class WishController {
       @RequestParam(defaultValue = "1") int page,
       @RequestParam(defaultValue = "10") int size
   ) {
-    Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Sort.Direction.DESC, "createdAt"));
-    WishPagingResponseDto result = wishService.getWishList(user.getId(), pageable);
+    if (page < 1){
+      throw new IllegalArgumentException("페이지 번호는 1 이상이어야 합니다.");
+    }
+    WishPagingResponseDto result = wishService.getWishList(user.getId(), page, size);
     return ResponseEntity.ok(result);
   }
-
 
   @DeleteMapping("/{productId}")
   public ResponseEntity<Void> deleteWish(@LoginMember User user, @PathVariable Long productId) {

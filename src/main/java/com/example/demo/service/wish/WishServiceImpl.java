@@ -11,7 +11,9 @@ import com.example.demo.exception.ProductNotFoundException;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.WishRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,8 +50,8 @@ public class WishServiceImpl implements WishService{
   }
 
   @Override
-
-  public WishPagingResponseDto getWishList(Long userId, Pageable pageable) {
+  public WishPagingResponseDto getWishList(Long userId, int page, int size) {
+    Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "createdAt"));
     Page<WishResponseDto> result = wishRepository.findAllByUserId(userId, pageable)
                                                  .map(WishResponseDto::from);
     return WishPagingResponseDto.from(result);
