@@ -3,7 +3,8 @@ CREATE TABLE product(
     name VARCHAR(255) NOT NULL,
     price INT NOT NULL,
     image_url VARCHAR(500),
-    created_at TIMESTAMP
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TABLE users (

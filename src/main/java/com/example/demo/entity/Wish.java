@@ -11,6 +11,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -35,6 +36,10 @@ public class Wish {
   @Column(updatable = false)
   private LocalDateTime createdAt;
 
+  @LastModifiedDate
+  @Column
+  private LocalDateTime updatedAt;
+
   protected Wish(){}
 
   public Wish(WishId id, User user, Product product) {
@@ -57,5 +62,9 @@ public class Wish {
 
   public LocalDateTime getCreatedAt(){
     return createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt(){
+    return updatedAt;
   }
 }
