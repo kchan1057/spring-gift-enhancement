@@ -10,7 +10,7 @@ public class ProductRequestDto {
 
   private Long id;
 
-  @NotBlank(message = "상품이름은 공백일 수 없습니다.")
+  @NotBlank(message = "상품 이름은 공백일 수 없습니다.")
   @Size(max= 15, message = "싱품의 이름은 공백 포함 15자 이하로 입력해주세요.")
   @Pattern(
       regexp = "^[a-zA-Z0-9가-힣  ()\\[\\]+\\-&/_]*$",
@@ -60,6 +60,8 @@ public class ProductRequestDto {
   }
 
   public void setName(String name) {this.name = name;}
+
   public void setPrice(int price) {this.price = price;}
+
   public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
 }

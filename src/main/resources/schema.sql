@@ -7,6 +7,14 @@ CREATE TABLE product(
     updated_at TIMESTAMP
 );
 
+CREATE TABLE product_option(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    option_name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    product_id BIGINT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE
+);
+
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
