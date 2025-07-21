@@ -7,7 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import com.example.demo.dto.product.ProductRequestDto;
 import com.example.demo.dto.product.ProductResponseDto;
 
+import java.sql.SQLException;
+import javax.sql.DataSource;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -40,6 +44,14 @@ class ProductTest {
                                                         .toEntity(ProductResponseDto.class);
 
     return response.getBody().id();
+  }
+
+  @Autowired
+  private DataSource dataSource;
+
+  @AfterAll
+  static void shutdownDB(@Autowired DataSource dataSource) throws SQLException {
+    dataSource.getConnection().createStatement().execute("SHUTDOWN");
   }
 
   @Test
