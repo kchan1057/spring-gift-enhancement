@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Min;
 
 public record PageRequestDto(
 
-    @Min(value = 1, message = "페이지는 1 이상이어야 합니다.")
+    @Min(value = 0, message = "페이지는 0 이상이어야 합니다.")
     int page,
 
     @Min(value = 1, message = "사이즈는 1 이상이어야 합니다.")
