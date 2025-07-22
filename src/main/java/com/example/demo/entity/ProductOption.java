@@ -29,6 +29,9 @@ public class ProductOption {
   private int quantity;
 
   public ProductOption(Product product, String optionName, int quantity){
+    if(quantity < 1){
+      throw new IllegalArgumentException("수량은 1이상이어야 합니다.");
+    }
     this.product = product;
     this.optionName = optionName;
     this.quantity = quantity;
@@ -37,6 +40,10 @@ public class ProductOption {
   protected ProductOption() {}
 
   public void subtract(int amount){
+    if(this.quantity == 0){
+      throw new IllegalArgumentException("해당 옵션은 품절입니다.");
+    }
+
     if(amount < 1 || amount > this.quantity){
       throw new IllegalArgumentException("수량 부족 및 요청 수량 오류");
     }

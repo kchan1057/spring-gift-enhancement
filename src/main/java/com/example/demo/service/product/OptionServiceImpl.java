@@ -9,7 +9,6 @@ import com.example.demo.exception.OptionNotFoundException;
 import com.example.demo.exception.ProductNotFoundException;
 import com.example.demo.repository.OptionRepository;
 import com.example.demo.repository.ProductRepository;
-import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +26,6 @@ public class OptionServiceImpl implements OptionService{
   }
 
   public List<ProductOptionResponseDto> getOptions(Long productId){
-    Product product = productRepository.findById(productId)
-        .orElseThrow(() -> new ProductNotFoundException("해당 상품이 존재하지 않습니다."));
 
     List<ProductOption> options = optionRepository.findByProductId(productId);
     if(options.isEmpty()){
