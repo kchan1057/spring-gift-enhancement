@@ -7,12 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.sql.DataSource;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +30,6 @@ public class ProductPagingTest {
 
   @Autowired
   private ProductRepository productRepository;
-
-
-  @Autowired
-  private DataSource dataSource;
-
-  @AfterAll
-  static void shutdownDB(@Autowired DataSource dataSource) throws SQLException {
-    dataSource.getConnection().createStatement().execute("SHUTDOWN");
-  }
 
   @BeforeEach
   void setUp() {
@@ -65,7 +53,7 @@ public class ProductPagingTest {
   }
 
   @Test
-  void 네번째_페이지의_세번째_상품아이디는_74이다() throws Exception {
+  void 페이징_요청시_상품목록_순서가_정확히_반환된다() throws Exception {
     MvcResult result = mockMvc.perform(get("/product-page?page=3&size=10"))
                               .andExpect(status().isOk())
                               .andReturn();
